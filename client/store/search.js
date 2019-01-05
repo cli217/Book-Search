@@ -9,6 +9,7 @@ const defaultSearches = {
 
 //Action types
 const ADD_SEARCH = 'ADD_SEARCH'
+// const CLEAR_SEARCH = 'CLEAR_SEARCH'
 const GET_RESULTS = 'GET_SEARCH'
 const REMOVE_SEARCH = 'REMOVE_SEARCH'
 
@@ -55,7 +56,6 @@ export default function (state = defaultSearches, action) {
 
     case GET_RESULTS:
       return {...state, booklist: action.results}
-
 
     default:
       return state
