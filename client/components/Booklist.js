@@ -1,11 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {addBookDetails} from '../store/search'
 
 
 const BookList = (props) => {
-    const onClick = () => {
+  const handleClick = details => {
+    props.addBookDetails(details)
+    routeChange('./details')
+  }
 
-    }
+  const routeChange = (path) => {
+    props.history.push(path)
+  }
 
   const booklist = props.booklist
   const numBooks = booklist.numFound
@@ -28,7 +34,7 @@ const BookList = (props) => {
                 <p>By: {author}</p>
               </div>
               <button onClick={window.open(`https://openlibrary.org/books/${coverEdition}`)}>To Open Library</button>
-              <button onClick={}>Details</button>
+              <button onClick={handleClick()}>Details</button>
             </div>
           )
         })}
@@ -36,3 +42,16 @@ const BookList = (props) => {
     </div>
   )
 }
+
+const mapState = state => {
+  return { filteredList: state.search.filteredList }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    addBookDetails: (details) => dispatch(addBookDetails(details))
+  }
+}
+
+
+export default connect(mapState, mapDispatch)(BookList)

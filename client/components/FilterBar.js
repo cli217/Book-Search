@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Booklist from './Booklist'
+import { addFilterList } from '../store/search';
 
 class FilterBar extends React.Component {
     constructor(props) {
@@ -36,8 +36,8 @@ class FilterBar extends React.Component {
             this.setState({
                 [key + 'Check']: [event.target.checked]
             })
-
         }
+        //clears field when unchecked
         else {
             this.setState({
                 [key]: [event.target.checked],
@@ -49,6 +49,8 @@ class FilterBar extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault()
+
+        //Filter via isbn
         if (this.state.ISBNCheck) {
             const booklist = this.state.FilteredBookList
             const newbooklist = booklist.filter(book => {
@@ -66,6 +68,7 @@ class FilterBar extends React.Component {
             })
         }
 
+        //Filter via author
         if (this.state.AuthorCheck) {
             const booklist1 = this.state.FilteredBookList
             const newbooklist1 = booklist1.filter(book =>
@@ -77,9 +80,10 @@ class FilterBar extends React.Component {
             })
         }
 
+        //Filter via title
         if (this.state.TitleCheck) {
             const booklist2 = this.state.FilteredBookList
-            const newbooklist2 = booklist2.filter(book => 
+            const newbooklist2 = booklist2.filter(book =>
                 book.title.toLowerCase() == this.state.title.toLowerCase()
             )
 
@@ -88,6 +92,7 @@ class FilterBar extends React.Component {
             })
         }
 
+        //Filter via subject/genre
         if (this.state.SubjectCheck) {
             const booklist3 = this.state.FilteredBookList
             const newbooklist3 = booklist3.filter(book => {
@@ -104,6 +109,8 @@ class FilterBar extends React.Component {
                 FilteredBookList: newbooklist3
             })
         }
+
+        this.props.addFilterList(this.state.FilteredBookList)
     }
 
     render() {
@@ -129,7 +136,6 @@ class FilterBar extends React.Component {
                         <button className='SubmitButton' type='submit'>Filter</button>
                     </form>
                 </div>
-                <Booklist booklist={this.state.FilteredBookList} />
             </div>
         )
     }
@@ -141,4 +147,10 @@ const mapState = state => {
     }
 }
 
-export default connect(mapState)(SearchBar)
+const mapDispatch = dispatch => {
+    return {
+        addFilterList: list => dispatch(addFilterList(list))
+    }
+}
+
+export default connect(mapState, mapDispatch)(FilterBar)

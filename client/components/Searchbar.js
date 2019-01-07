@@ -1,5 +1,5 @@
 import React from 'react'
-import { addSearch, removeSearch, apiSearch } from '../store/search'
+import {removeSearch, apiSearch } from '../store/search'
 import { connect } from 'react-redux'
 
 class SearchBar extends React.Component {
@@ -20,7 +20,6 @@ class SearchBar extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    this.props.addSearch(this.state.searchTerm)
     this.props.apiSearch(this.state.searchCate, this.state.searchTerm)
   }
 
@@ -53,7 +52,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => ({
   apiSearch: (field, term) => { dispatch(apiSearch(field, term)) },
-  addSearch: (term) => { dispatch(addSearch(term)) },
   removeSearch: (rmTerm) => { dispatch(removeSearch(rmTerm)) }
 })
 
