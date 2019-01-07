@@ -40,7 +40,6 @@ class SearchBar extends React.Component {
           <button className='SubmitButton' type='submit'>Submit</button>
         </form>
       </div>
-
     )
   }
 }

@@ -1,59 +1,145 @@
 import React from 'react'
-import { addSearch, removeSearch, apiSearch } from '../store/search'
 import { connect } from 'react-redux'
+import Booklist from './Booklist'
 
-class SearchBar extends React.Component {
-  constructor(props) {
-    super(props),
-      this.state = {
-        searchCate: 'isbn',
-        searchTerm: ''
-      }
-  }
+class FilterBar extends React.Component {
+    constructor(props) {
+        super(props),
+            this.state = {
+                ISBNCheck: false,
+                AuthorCheck: false,
+                TitleCheck: false,
+                SubjectCheck: false,
+                ISBNFilter: '',
+                AuthorFilter: '',
+                TitleFilter: '',
+                SubjectFilter: '',
+                FilteredBookList: []
+            }
+    }
 
-  handleChange = key => event => {
-    this.setState({
-      [key]: event.target.value
-    })
-    console.log(this.state)
-  }
+    componentDidMount() {
+        this.setState({
+            FilteredBookList: this.props.booklist
+        })
+    }
 
-  handleSubmit = event => {
-    event.preventDefault()
-    this.props.addSearch(this.state.searchTerm)
-    this.props.apiSearch(this.state.searchCate, this.state.searchTerm)
-  }
+    handleChange = (key) => event => {
+        this.setState({
+            [key + 'Filter']: [event.target.value]
+        })
+        console.log(this.state)
+    }
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <select onChange={this.handleChange('searchCate')}>
-            <option value='isbn'>ISBN</option>
-            <option value='title'>Title</option>
-            <option value='author'>Author</option>
-          </select>
-          <input
-            value={this.state.searchTerm}
-            onChange={this.handleChange('searchTerm')}
-          />
-          <button className='SubmitButton' type='submit'>Submit</button>
-        </form>
-      </div>
+    handleChecked = (key) => event => {
+        if (event.target.checked) {
+            this.setState({
+                [key + 'Check']: [event.target.checked]
+            })
 
-    )
-  }
+        }
+        else {
+            this.setState({
+                [key]: [event.target.checked],
+                [key + 'Filter']: ''
+            })
+        }
+        console.log(this.state)
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+
+        if (this.state.ISBNCheck) {
+            const booklist = this.state.FilteredBookList
+            const newbooklist = booklist.filter(book => {
+                let matchingISBN = false
+                book.isbn.map(isbn => {
+                    if (isbn === this.state.ISBNFilter) {
+                        matchingISBN = true
+                    }
+                })
+                return matchingISBN
+            })
+
+            this.setState({
+                FilteredBookList: newbooklist
+            })
+        }
+
+        if (this.state.AuthorCheck) {
+            const booklist1 = this.state.FilteredBookList
+            const newbooklist1 = booklist1.filter(book =>
+                book.author_name.toLowerCase() == this.state.AuthorFilter.toLowerCase()
+            )
+
+            this.setState({
+                FilteredBookList: newbooklist1
+            })
+        }
+
+        if (this.state.TitleCheck) {
+            const booklist2 = this.state.FilteredBookList
+            const newbooklist2 = booklist2.filter(book => 
+                book.title.toLowerCase() == this.state.title.toLowerCase()
+            )
+
+            this.setState({
+                FilteredBookList: newbooklist2
+            })
+        }
+
+        if (this.state.SubjectCheck) {
+            const booklist3 = this.state.FilteredBookList
+            const newbooklist3 = booklist3.filter(book => {
+                let matchingSubject = false
+                book.subject.map(subject => {
+                    if (subject.toLowerCase() == this.state.SubjectFilter.toLowerCase()) {
+                        matchingSubject = true
+                    }
+                })
+                return matchingSubject
+            })
+
+            this.setState({
+                FilteredBookList: newbooklist3
+            })
+        }
+    }
+
+    render() {
+        const filterList = ['ISBN', 'Author', 'Title', 'Subject']
+        return (
+            <div>
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        {filterList.map(key => {
+                            return (
+                                <React.Fragment>
+                                    <input type='checkbox' onChange={this.handleChecked(key)}>
+                                        {key}</input>
+                                    {
+                                        this.state[key + 'Check'] &&
+                                        <input
+                                            value={this.state[key + 'Filter']}
+                                            onChange={this.handleChange(key)}
+                                        />
+                                    }
+                                </React.Fragment>)
+                        })}
+                        <button className='SubmitButton' type='submit'>Filter</button>
+                    </form>
+                </div>
+                <Booklist booklist={booklist} />
+            </div>
+        )
+    }
 }
 
 const mapState = state => {
-  return {
-    searchTerm: state.search.searchTerm,
-    searchHistory: state.search.searchHistory
-  }
+    return {
+        booklist: state.search.booklist.docs,
+    }
 }
-
-// const mapDispatch = dispatch => ({
-
-// })
 
 export default connect(mapState)(SearchBar)

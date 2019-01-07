@@ -11,9 +11,9 @@ const SearchResults = (props) => {
   const booklist = props.booklist
   const numBooks = booklist.numFound
   return (
-    <React.Fragment>
+    <div>
       <div>
-        <p>Reul: {numBooks}</p>
+        <p>Results: {numBooks}</p>
       </div>
       <div className='bookGrid'>
         {booklist.docs.map((book) => {
@@ -35,6 +35,6 @@ const SearchResults = (props) => {
           )
         })}
       </div>
-    </React.Fragment>
+    </div>
   )
 }
