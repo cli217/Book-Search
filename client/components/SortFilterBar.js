@@ -47,9 +47,8 @@ class FilterBar extends React.Component {
         console.log(this.state)
     }
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault()
-
         if (this.state.ISBNCheck) {
             const booklist = this.state.FilteredBookList
             const newbooklist = booklist.filter(book => {
@@ -62,7 +61,7 @@ class FilterBar extends React.Component {
                 return matchingISBN
             })
 
-            this.setState({
+            await this.setState({
                 FilteredBookList: newbooklist
             })
         }
@@ -73,7 +72,7 @@ class FilterBar extends React.Component {
                 book.author_name.toLowerCase() == this.state.AuthorFilter.toLowerCase()
             )
 
-            this.setState({
+            await this.setState({
                 FilteredBookList: newbooklist1
             })
         }
@@ -84,7 +83,7 @@ class FilterBar extends React.Component {
                 book.title.toLowerCase() == this.state.title.toLowerCase()
             )
 
-            this.setState({
+            await this.setState({
                 FilteredBookList: newbooklist2
             })
         }
@@ -101,7 +100,7 @@ class FilterBar extends React.Component {
                 return matchingSubject
             })
 
-            this.setState({
+            await this.setState({
                 FilteredBookList: newbooklist3
             })
         }
@@ -130,7 +129,7 @@ class FilterBar extends React.Component {
                         <button className='SubmitButton' type='submit'>Filter</button>
                     </form>
                 </div>
-                <Booklist booklist={booklist} />
+                <Booklist booklist={this.state.FilteredBookList} />
             </div>
         )
     }
