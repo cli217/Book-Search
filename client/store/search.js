@@ -68,7 +68,7 @@ export default function (state = defaultSearches, action) {
     case ADD_SEARCH:
       return { ...state, searchTerm: action.term }
 
-    case ClEAR_SEARCH:
+    case CLEAR_SEARCH:
       return { ...state, searchTerm: '' }
 
     case GET_RESULTS:

@@ -17,7 +17,7 @@ class SortBar extends React.Component {
         })
     }
 
-    handleSubmit(evt) {
+    handleSubmit = evt => {
         evt.preventDefault()
         const sortedList = this.props.filteredList.sort((a, b) => {
             if( a[this.state.sortOrder] > b[this.state.sortOrder]) 1

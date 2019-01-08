@@ -1,5 +1,5 @@
 import React from 'react'
-import {removeSearch, apiSearch } from '../store/search'
+import { removeSearch, apiSearch } from '../store/search'
 import { connect } from 'react-redux'
 
 class SearchBar extends React.Component {
@@ -15,12 +15,16 @@ class SearchBar extends React.Component {
     this.setState({
       [key]: event.target.value
     })
-    console.log(this.state)
   }
 
   handleSubmit = event => {
     event.preventDefault()
     this.props.apiSearch(this.state.searchCate, this.state.searchTerm)
+    this.routeChange('/results')
+  }
+
+  routeChange = (path) => {
+    this.props.history.push(path)
   }
 
   render() {
