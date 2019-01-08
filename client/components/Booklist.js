@@ -13,7 +13,7 @@ const BookList = (props) => {
     props.history.push(path)
   }
 
-  const booklist = props.booklist
+  const booklist = props.sortedList
   const numBooks = booklist.numFound
   return (
     <div>
@@ -34,7 +34,7 @@ const BookList = (props) => {
                 <p>By: {author}</p>
               </div>
               <button onClick={window.open(`https://openlibrary.org/books/${coverEdition}`)}>To Open Library</button>
-              <button onClick={handleClick()}>Details</button>
+              <button onClick={handleClick(book)}>Details</button>
             </div>
           )
         })}
@@ -44,7 +44,7 @@ const BookList = (props) => {
 }
 
 const mapState = state => {
-  return { filteredList: state.search.filteredList }
+  return { sortedList: state.search.sortedList }
 }
 
 const mapDispatch = dispatch => {
