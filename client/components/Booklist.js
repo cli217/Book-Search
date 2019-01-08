@@ -4,6 +4,7 @@ import {addBookDetails} from '../store/search'
 
 
 const BookList = (props) => {
+
   const handleClick = details => {
     props.addBookDetails(details)
     routeChange('./details')
@@ -25,15 +26,13 @@ const BookList = (props) => {
           const coverArt = book.cover_i
           const title = book.title
           const author = book.author_name
-          const coverEdition = cover_edition_key
           return (
             <div className='bookItem'>
-              <img className='bookCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
+              <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
               <div>
                 <h2>{title}</h2>
                 <p>By: {author}</p>
               </div>
-              <button onClick={window.open(`https://openlibrary.org/books/${coverEdition}`)}>To Open Library</button>
               <button onClick={handleClick(book)}>Details</button>
             </div>
           )
