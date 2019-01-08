@@ -7,7 +7,7 @@ const SearchResults = () => {
     return(
         <div>
             <FilterBar/>
-            {/* <SortBar/> */}
+            <SortBar/>
             {/* <Booklist/> */}
         </div>
     )

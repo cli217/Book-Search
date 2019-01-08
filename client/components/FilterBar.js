@@ -32,15 +32,16 @@ class FilterBar extends React.Component {
     }
 
     handleChecked = (key) => event => {
-        if (event.target.checked) {
-            this.setState({
-                [key + 'Check']: [event.target.checked]
-            })
+        const keyName = this.state[key + 'Check']
+        if (!keyName) {
+            this.setState(
+                { [key + 'Check']: !keyName }
+            )
         }
         //clears field when unchecked
         else {
             this.setState({
-                [key]: [event.target.checked],
+                [key + 'Check']: !keyName,
                 [key + 'Filter']: ''
             })
         }
@@ -117,25 +118,25 @@ class FilterBar extends React.Component {
         const filterList = ['ISBN', 'Author', 'Title', 'Subject']
         return (
             <div>
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        {filterList.map(key => {
-                            return (
-                                <React.Fragment>
+                <form onSubmit={this.handleSubmit}>
+                    {filterList.map(key => {
+
+                        return (
+                            <div>
+                                    <p>{key}</p>
                                     <input type='checkbox' onChange={this.handleChecked(key)}>
-                                        {key}</input>
-                                    {
-                                        this.state[key + 'Check'] &&
-                                        <input
-                                            value={this.state[key + 'Filter']}
-                                            onChange={this.handleChange(key)}
-                                        />
-                                    }
-                                </React.Fragment>)
-                        })}
-                        <button className='SubmitButton' type='submit'>Filter</button>
-                    </form>
-                </div>
+                                    </input>
+                                {
+                                    this.state[key + 'Check'] &&
+                                    <input
+                                        value={this.state[key + 'Filter']}
+                                        onChange={this.handleChange(key)}
+                                    />
+                                }
+                            </div>)
+                    })}
+                    <button className='SubmitButton' type='submit'>Filter</button>
+                </form>
             </div>
         )
     }
