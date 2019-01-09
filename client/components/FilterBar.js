@@ -120,7 +120,6 @@ class FilterBar extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     {filterList.map(key => {
-
                         return (
                             <div>
                                     <p>{key}</p>

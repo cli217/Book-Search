@@ -56,6 +56,8 @@ export const apiSearch = (field, term) =>
       const results = res.data
       dispatch(addSearch(term))
       dispatch(getResults(results))
+      dispatch(addFilterList(results))
+      dispatch(addSortedList(results))
     }
     catch (err) {
       console.log(err)

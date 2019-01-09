@@ -8,7 +8,7 @@ const SearchResults = () => {
         <div>
             <FilterBar/>
             <SortBar/>
-            {/* <Booklist/> */}
+            <Booklist/>
         </div>
     )
 }

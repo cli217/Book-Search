@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {addBookDetails} from '../store/search'
+import { addBookDetails } from '../store/search'
 
 
 const BookList = (props) => {
@@ -15,29 +15,31 @@ const BookList = (props) => {
   }
 
   const booklist = props.sortedList
-  const numBooks = booklist.numFound
+  const numBooks = booklist.num_found
   return (
     <div>
       <div>
         <p>Results: {numBooks}</p>
       </div>
-      <div className='bookGrid'>
-        {booklist.docs.map((book) => {
-          const coverArt = book.cover_i
-          const title = book.title
-          const author = book.author_name
-          return (
-            <div className='bookItem'>
-              <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
-              <div>
-                <h2>{title}</h2>
-                <p>By: {author}</p>
+      {numBooks &&
+        <div className='bookGrid'>
+          {booklist.docs.map((book) => {
+            const coverArt = book.cover_i
+            const title = book.title
+            const author = book.author_name
+            return (
+              <div className='bookItem'>
+                <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
+                <div>
+                  <h2>{title}</h2>
+                  <p>By: {author}</p>
+                </div>
+                <button onClick={() => {handleClick(book)}}>Details</button>
               </div>
-              <button onClick={handleClick(book)}>Details</button>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      }
     </div>
   )
 }

@@ -1,18 +1,23 @@
 import React from 'react'
 import Searchbar from './components/Searchbar'
 import Routes from './routes'
-import createHistory from 'history/createBrowserHistory'
+import { connect } from 'react-redux'
 
-const history = createHistory()
-
-
-const App = () => {
-  return (
-    <div>
-      <Searchbar history={history}/>
-      <Routes />
-    </div>
-  )
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Searchbar />
+        {this.props.booklist.length !== 0 && (<Routes />)}
+      </div>
+    )
+  }
 }
 
-export default App
+const mapState = (state) => {
+  return {
+    booklist: state.search.booklist
+  }
+}
+
+export default connect(mapState)(App)
