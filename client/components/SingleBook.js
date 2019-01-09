@@ -1,7 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Searchbar from './Searchbar'
 
 const SingleBook = (props) => {
+
+    const onClick = () => {
+        window.open(`https://openlibrary.org/books/${coverEdition}`)
+    }
 
     const routeChange = (path) => {
         props.history.push(path)
@@ -15,6 +20,8 @@ const SingleBook = (props) => {
     const subject = details.subject.join(', ')
     const publishYr = details.first_public_year
     return (
+        <React.Fragment>
+        <Searchbar {...props}/>
         <div>
             <img className='detailCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-M.jpg`} />
             <div>
@@ -23,9 +30,10 @@ const SingleBook = (props) => {
                 <p>Genre: {subject}</p>
                 <p>First Publishyear: {publishYr}</p>
             </div>
-            <button onClick={window.open(`https://openlibrary.org/books/${coverEdition}`)}>To Open Library</button>
-            <button onClick={routeChange('./results')}>Back</button>
+            <button onClick={onClick}>To Open Library</button>
+            <button onClick={() => routeChange('./results')}>Back</button>
         </div>
+        </React.Fragment>
     )
 }
 

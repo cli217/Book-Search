@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addFilterList } from '../store/search';
+import { addFilterList, addSortedList } from '../store/search';
 
 class FilterBar extends React.Component {
     constructor(props) {
@@ -18,15 +18,15 @@ class FilterBar extends React.Component {
             }
     }
 
-    componentDidMount() {
-        this.setState({
-            FilteredBookList: this.props.booklist
-        })
-    }
+    // componentDidMount() {
+    //     this.setState({
+    //         FilteredBookList: this.props.booklist
+    //     })
+    // }
 
     handleChange = (key) => event => {
         this.setState({
-            [key + 'Filter']: [event.target.value]
+            [key + 'Filter']: event.target.value
         })
         console.log(this.state)
     }
@@ -50,11 +50,11 @@ class FilterBar extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault()
+        let filterlist = this.props.booklist
 
         //Filter via isbn
         if (this.state.ISBNCheck) {
-            const booklist = this.state.FilteredBookList
-            const newbooklist = booklist.filter(book => {
+            filterlist = filterlist.filter(book => {
                 let matchingISBN = false
                 book.isbn.map(isbn => {
                     if (isbn === this.state.ISBNFilter) {
@@ -63,55 +63,53 @@ class FilterBar extends React.Component {
                 })
                 return matchingISBN
             })
-
-            await this.setState({
-                FilteredBookList: newbooklist
-            })
         }
 
         //Filter via author
         if (this.state.AuthorCheck) {
-            const booklist1 = this.state.FilteredBookList
-            const newbooklist1 = booklist1.filter(book =>
-                book.author_name.toLowerCase() == this.state.AuthorFilter.toLowerCase()
-            )
-
-            await this.setState({
-                FilteredBookList: newbooklist1
+            console.log(filterlist)
+            filterlist = filterlist.filter(book => {
+                if (book.author_name) {
+                    return book.author_name[0].toLowerCase() == this.state.AuthorFilter.toLowerCase()
+                }
+                else return false
             })
+            console.log(filterlist)
         }
 
         //Filter via title
         if (this.state.TitleCheck) {
-            const booklist2 = this.state.FilteredBookList
-            const newbooklist2 = booklist2.filter(book =>
-                book.title.toLowerCase() == this.state.title.toLowerCase()
+            filterlist = filterlist.filter(book =>
+                book.title.toLowerCase() == this.state.TitleFilter.toLowerCase()
             )
-
-            await this.setState({
-                FilteredBookList: newbooklist2
-            })
         }
 
         //Filter via subject/genre
         if (this.state.SubjectCheck) {
-            const booklist3 = this.state.FilteredBookList
-            const newbooklist3 = booklist3.filter(book => {
+            filterlist = filterlist.filter(book => {
                 let matchingSubject = false
-                book.subject.map(subject => {
-                    if (subject.toLowerCase() == this.state.SubjectFilter.toLowerCase()) {
-                        matchingSubject = true
-                    }
-                })
+                if (book.subject) {
+                    book.subject.map(subject => {
+                        if (subject.toLowerCase() == this.state.SubjectFilter.toLowerCase()) {
+                            matchingSubject = true
+                        }
+                    })
+                }
                 return matchingSubject
-            })
-
-            await this.setState({
-                FilteredBookList: newbooklist3
             })
         }
 
-        this.props.addFilterList(this.state.FilteredBookList)
+        await this.setState({
+            FilteredBookList: filterlist
+        })
+
+        const formatedList = {
+            num_found: this.state.FilteredBookList.length,
+            docs: this.state.FilteredBookList
+        }
+
+        this.props.addFilterList(formatedList)
+        this.props.addSortedList(formatedList)
     }
 
     render() {
@@ -122,9 +120,9 @@ class FilterBar extends React.Component {
                     {filterList.map(key => {
                         return (
                             <div>
-                                    <p>{key}</p>
-                                    <input type='checkbox' onChange={this.handleChecked(key)}>
-                                    </input>
+                                <p>{key}</p>
+                                <input type='checkbox' onChange={this.handleChecked(key)}>
+                                </input>
                                 {
                                     this.state[key + 'Check'] &&
                                     <input
@@ -149,7 +147,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        addFilterList: list => dispatch(addFilterList(list))
+        addFilterList: list => dispatch(addFilterList(list)),
+        addSortedList: list => dispatch(addSortedList(list))
     }
 }
 

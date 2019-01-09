@@ -11,6 +11,10 @@ class SearchBar extends React.Component {
       }
   }
 
+  componentDidMount(){
+    this.setState({searchTerm: this.props.searchTerm})
+  }
+
   handleChange = key => event => {
     this.setState({
       [key]: event.target.value
@@ -20,6 +24,7 @@ class SearchBar extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     this.props.apiSearch(this.state.searchCate, this.state.searchTerm)
+    this.routeChange('./results')
   }
 
   routeChange = (path) => {
@@ -49,7 +54,6 @@ class SearchBar extends React.Component {
 const mapState = state => {
   return {
     searchTerm: state.search.searchTerm,
-    searchHistory: state.search.searchHistory
   }
 }
 

@@ -7,7 +7,7 @@ class SortBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            sortOrder: '',
+            sortOrder: 'title',
         }
     }
 
@@ -19,12 +19,21 @@ class SortBar extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        const sortedList = this.props.filteredList.sort((a, b) => {
-            if( a[this.state.sortOrder] > b[this.state.sortOrder]) 1
-            if( a[this.state.sortOrder] < b[this.state.sortOrder]) -1
+        const sortedList = this.props.filteredList.docs
+         sortedList.sort((a, b) => {
+            if( a[this.state.sortOrder] > b[this.state.sortOrder]) return 1
+            if( a[this.state.sortOrder] < b[this.state.sortOrder]) return -1
             return 0
         })
-        this.props.addSortedList(sortedList)
+
+        console.log(sortedList)
+
+        const formatedList = {
+            num_found: sortedList.length,
+            docs: sortedList
+        }
+
+        this.props.addSortedList(formatedList)
     }
 
     render() {

@@ -4,7 +4,7 @@ import { addBookDetails } from '../store/search'
 
 
 const BookList = (props) => {
-
+  
   const handleClick = details => {
     props.addBookDetails(details)
     routeChange('./details')
@@ -13,10 +13,12 @@ const BookList = (props) => {
   const routeChange = (path) => {
     props.history.push(path)
   }
-
+  
+  console.log(props)
   const booklist = props.sortedList
   const numBooks = booklist.num_found
   return (
+    
     <div>
       <div>
         <p>Results: {numBooks}</p>
@@ -32,7 +34,7 @@ const BookList = (props) => {
                 <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
                 <div>
                   <h2>{title}</h2>
-                  <p>By: {author}</p>
+                  <p>By: {book.author_name && book.author_name.join(', ')}</p>
                 </div>
                 <button onClick={() => {handleClick(book)}}>Details</button>
               </div>
