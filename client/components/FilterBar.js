@@ -116,24 +116,29 @@ class FilterBar extends React.Component {
         const filterList = ['ISBN', 'Author', 'Title', 'Subject']
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    {filterList.map(key => {
-                        return (
-                            <div>
-                                <p>{key}</p>
-                                <input type='checkbox' onChange={this.handleChecked(key)}>
-                                </input>
-                                {
-                                    this.state[key + 'Check'] &&
-                                    <input
-                                        value={this.state[key + 'Filter']}
-                                        onChange={this.handleChange(key)}
-                                    />
-                                }
-                            </div>)
-                    })}
-                    <button className='SubmitButton' type='submit'>Filter</button>
-                </form>
+                <h3 className='settings'>Filter Settings:</h3>
+                <div className='filterbar'>
+                    <form onSubmit={this.handleSubmit} className='filterform'>
+                        {filterList.map(key => {
+                            return (
+                                <div className='filterinput'>
+                                    <input type='checkbox' onChange={this.handleChecked(key)} />
+                                    <p>{key}</p>
+                                    {
+                                        this.state[key + 'Check'] &&
+                                        <React.Fragment>
+                                            <p>: </p>
+                                            <input
+                                                value={this.state[key + 'Filter']}
+                                                onChange={this.handleChange(key)}
+                                            />
+                                        </React.Fragment>
+                                    }
+                                </div>)
+                        })}
+                        <button className='filterSubmitButton' type='submit'>Filter</button>
+                    </form>
+                </div>
             </div>
         )
     }

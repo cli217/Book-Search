@@ -20,9 +20,9 @@ class SortBar extends React.Component {
     handleSubmit = event => {
         event.preventDefault()
         const sortedList = this.props.filteredList.docs
-         sortedList.sort((a, b) => {
-            if( a[this.state.sortOrder] > b[this.state.sortOrder]) return 1
-            if( a[this.state.sortOrder] < b[this.state.sortOrder]) return -1
+        sortedList.sort((a, b) => {
+            if (a[this.state.sortOrder] > b[this.state.sortOrder]) return 1
+            if (a[this.state.sortOrder] < b[this.state.sortOrder]) return -1
             return 0
         })
 
@@ -38,15 +38,18 @@ class SortBar extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <select onChange={this.handleChange}>
-                        <option value='title'>A-Z Title</option>
-                        <option value='author_name'>A-Z Author</option>
-                    </select>
-                    <button className='submitButton' type='submit'>Sort</button>
-                </form>
-            </div>
+            <React.Fragment>
+                <h3 className='settings'>Sort Settings:</h3>
+                <div className='sortbar'>
+                    <form onSubmit={this.handleSubmit}>
+                        <select onChange={this.handleChange}>
+                            <option value='title'>A-Z Title</option>
+                            <option value='author_name'>A-Z Author</option>
+                        </select>
+                        <button className='submitButton' type='submit'>Sort</button>
+                    </form>
+                </div>
+            </React.Fragment>
         )
     }
 

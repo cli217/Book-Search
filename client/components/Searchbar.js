@@ -33,8 +33,8 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className='searchbar'>
+        <form onSubmit={this.handleSubmit} className='searchform'>
           <select onChange={this.handleChange('searchCate')}>
             <option value='isbn'>ISBN</option>
             <option value='title'>Title</option>
