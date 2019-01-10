@@ -40,7 +40,7 @@
     "start-dev": "webpack -w & nodemon server.js",
     "build": "webpack",
     "build-watch": "webpack -w",
-    "deploy": "script/deploy"
+    "build-p": "webpack -p"
   },
   "repository": {
     "type": "git",
