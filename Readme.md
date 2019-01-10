@@ -1,5 +1,8 @@
 # Book Find
-Website that allows user to search a book via both isbn 10 and isbn 13, the book title, or the book author
+Checkout
+https://book-find.herokuapp.com/
+
+BookFind is a website that allows user to search a book via both isbn 10 and isbn 13, the book title, or the book author
 
 ## Filter
 he user can choose to filter the list of books through title,ISBN, author, subject(genre).
