@@ -7,19 +7,42 @@ body, html{
     justify-content: center;
     font-size: 40px;
     font-weight: bold;
+    position: absolute;
+    font-style: italic;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.titleContainer{
+    height: 3em;
+}
+
+.searchBarContainer{
+    height: 2em;
 }
 
 .searchbar{
     display: flex;
     justify-content: center;
+    position: absolute;
 }
 
 .searchform{
     height: 2em;
 }
 
-.settings{
+.settingsContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.settingsTitle{
+    margin-top: 0;
     text-align: center;
+}
+
+.resultsTitle{
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .filterbar{
@@ -52,6 +75,11 @@ body, html{
     width: 7em;
 }
 
+.settings{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
 .sortbar{
     display: flex;
     justify-content: center;
@@ -71,15 +99,14 @@ body, html{
     margin: 1em;
     height: 14em;
     width: 14em;
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(240, 240, 240);
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-/* .imgDiv{
-    m
-} */
+.bookList{
+}
 
 .listCover{
     height: 6em;
@@ -110,4 +137,26 @@ body, html{
     justify-content: center;
 }
 
-.
+.container{
+    display: flex;
+    flex-direction: column
+}
+
+.showSettings{
+    /* display:flex; */
+    text-align: center;
+}
+
+.spanSetting{
+    font-size: 14px;
+}
+
+.sortform{
+    display: flex;
+    flex-direction: column;
+}
+
+.booksFound{
+    margin-top: 0;
+    font-size: 12px;
+}

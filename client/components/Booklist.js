@@ -14,23 +14,26 @@ const BookList = (props) => {
     props.history.push(path)
   }
 
-  console.log(props)
   const booklist = props.sortedList
   const numBooks = booklist.num_found
   return (
-    <div>
-      <h3 className='settings'>Results: {numBooks}</h3>
+    <div className='bookList'>
+      <h3 className='resultsTitle'>Search Results:</h3>
+      <p className='booksFound'>Number of Books Found: {numBooks}</p>
       {numBooks &&
         <div className='bookGrid'>
           {booklist.docs.map((book) => {
             const coverArt = book.cover_i
             const title = book.title
             return (
-              <div className='bookItem'>
-                <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} />
+              <div className='bookItem' key={book.title + book.cover_i}>
+              { coverArt ? <img className='listCover' src={`http://covers.openlibrary.org/b/id/${coverArt}-S.jpg`} /> :
+
+              <img className='listCover' src={`placeholder`} />
+              }
                 <div className='listdetails'>
                   <p className='booktitle'>{title}</p>
-                  <p className='authorlist'>By: {book.author_name && book.author_name.join(', ')}</p>
+                  <p className='authorlist'>By: {book.author_name ? book.author_name.join(', ') : 'Unkown'}</p>)
                 </div>
                 <button onClick={() => { handleClick(book) }} className='detailsButton'>Details</button>
               </div>

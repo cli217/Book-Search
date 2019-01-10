@@ -18,17 +18,10 @@ class FilterBar extends React.Component {
             }
     }
 
-    // componentDidMount() {
-    //     this.setState({
-    //         FilteredBookList: this.props.booklist
-    //     })
-    // }
-
     handleChange = (key) => event => {
         this.setState({
             [key + 'Filter']: event.target.value
         })
-        console.log(this.state)
     }
 
     handleChecked = (key) => event => {
@@ -45,7 +38,6 @@ class FilterBar extends React.Component {
                 [key + 'Filter']: ''
             })
         }
-        console.log(this.state)
     }
 
     handleSubmit = async event => {
@@ -115,13 +107,13 @@ class FilterBar extends React.Component {
     render() {
         const filterList = ['ISBN', 'Author', 'Title', 'Subject']
         return (
-            <div>
-                <h3 className='settings'>Filter Settings:</h3>
+            <div className='settings'>
+                <h3 className='settingsTitle'>Filter By:</h3>
                 <div className='filterbar'>
                     <form onSubmit={this.handleSubmit} className='filterform'>
                         {filterList.map(key => {
                             return (
-                                <div className='filterinput'>
+                                <div className='filterinput' key={key + 'input'}>
                                     <input type='checkbox' onChange={this.handleChecked(key)} />
                                     <p>{key}</p>
                                     {

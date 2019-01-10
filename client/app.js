@@ -5,12 +5,14 @@ import Routes from './routes'
 
 
 const App = () => {
-    return (
-      <div>
-        {/* <Searchbar /> */}
-        <Routes />
+  return (
+    <div>
+      <div className='titleContainer'>
+        <nav id='title'>Book Find</nav>
       </div>
-    )
+      <Routes />
+    </div>
+  )
 }
 
 export default App

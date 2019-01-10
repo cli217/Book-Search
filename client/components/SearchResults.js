@@ -4,15 +4,40 @@ import SortBar from './SortBar'
 import Booklist from './Booklist';
 import Searchbar from './Searchbar'
 
- const SearchResults = props => {
-    return(
-        <div>
-            <Searchbar {...props}/>
-            <FilterBar/>
-            <SortBar/>
-            <Booklist {...props}/>
-        </div>
-    )
+class SearchResults extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showSettings: true
+        }
+    }
+
+    onClick = () => {
+        this.setState({ showSettings: !this.state.showSettings })
+    }
+
+    render() {
+        return (
+            <div className='container'>
+                <Searchbar {...this.props} />
+                <div>
+                    {this.state.showSettings &&
+                        <div className='settingsContainer'>
+                            <FilterBar />
+                            <SortBar />
+                        </div>}
+                    <div className='showSettings'>
+                        {
+                            this.state.showSettings ?
+                                <span onClick={this.onClick} className='spanSetting'>Hide Filter Options</span> :
+                                <span onClick={this.onClick} className='spanSetting'>Show Filter Options</span>
+                        }
+                    </div>
+                </div>
+                <Booklist {...this.props} />
+            </div>
+        )
+    }
 }
 
 export default SearchResults

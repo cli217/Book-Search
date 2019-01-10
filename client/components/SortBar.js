@@ -26,8 +26,6 @@ class SortBar extends React.Component {
             return 0
         })
 
-        console.log(sortedList)
-
         const formatedList = {
             num_found: sortedList.length,
             docs: sortedList
@@ -38,18 +36,24 @@ class SortBar extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
-                <h3 className='settings'>Sort Settings:</h3>
+            <div className='settings'>
+                <h3 className='settingsTitle'>Sort By:</h3>
                 <div className='sortbar'>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleSubmit} className='sortform'>
                         <select onChange={this.handleChange}>
                             <option value='title'>A-Z Title</option>
                             <option value='author_name'>A-Z Author</option>
                         </select>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                         <button className='submitButton' type='submit'>Sort</button>
                     </form>
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 
