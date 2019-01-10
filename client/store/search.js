@@ -52,7 +52,7 @@ export const addSortedList = list => ({
 export const apiSearch = (field, term) =>
   async function (dispatch) {
     try {
-      const res = await axios.get('http://openlibrary.org/search.json?' + field + '=' + term)
+      const res = await axios.get('https://openlibrary.org/search.json?' + field + '=' + term)
       const results = res.data
       dispatch(addSearch(term))
       dispatch(getResults(results))
