@@ -33,7 +33,7 @@ const BookList = (props) => {
               }
                 <div className='listdetails'>
                   <p className='booktitle'>{title}</p>
-                  <p className='authorlist'>By: {book.author_name ? book.author_name.join(', ') : 'Unkown'}</p>)
+                  <p className='authorlist'>By: {book.author_name ? book.author_name.join(', ') : 'Unkown'}</p>
                 </div>
                 <button onClick={() => { handleClick(book) }} className='detailsButton'>Details</button>
               </div>

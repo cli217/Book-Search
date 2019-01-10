@@ -160,3 +160,18 @@ body, html{
     margin-top: 0;
     font-size: 12px;
 }
+
+.detailsButton{
+    display:flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 320px){
+.titleContainer{
+    height: 6em
+}
+
+.searchBarContainer{
+    height: 4em
+}
+}

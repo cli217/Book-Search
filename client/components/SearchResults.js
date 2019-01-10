@@ -13,6 +13,14 @@ class SearchResults extends React.Component {
     }
 
     onClick = () => {
+        if(this.state.showSettings)
+        {
+            document.getElementsByClassName('settingsContainer')[0].style.display ='none'
+        }
+        else{
+            document.getElementsByClassName('settingsContainer')[0].style.display ='flex'
+        }
+
         this.setState({ showSettings: !this.state.showSettings })
     }
 
@@ -21,11 +29,11 @@ class SearchResults extends React.Component {
             <div className='container'>
                 <Searchbar {...this.props} />
                 <div>
-                    {this.state.showSettings &&
+                    {/* {this.state.showSettings && */}
                         <div className='settingsContainer'>
                             <FilterBar />
                             <SortBar />
-                        </div>}
+                        </div>
                     <div className='showSettings'>
                         {
                             this.state.showSettings ?
